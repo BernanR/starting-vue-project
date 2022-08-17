@@ -1,6 +1,6 @@
 # VueStarting
 
-In this project you have everything you need to start your project with vue and tailwind.
+In this project you will have everything you need to start your project with vue and tailwind.
 
 * Login and Register page
 * Routes
