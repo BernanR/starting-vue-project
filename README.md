@@ -1,6 +1,11 @@
 # VueStarting
 
-This template should help get you started developing with Vue 3 in Vite.
+In this project you have everything you need to start your project with vue and tailwind.
+
+* Login and Register page
+* Routes
+* Dialog for alerts and confirmation
+* Basic form
 
 ## Recommended IDE Setup
 
