@@ -3,6 +3,7 @@
 In this project you will have everything you need to start your project with vue and tailwind.
 
 * Login and Register page
+* Modules architecture
 * Routes
 * Dialog for alerts and confirmation
 * Basic form
