@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.required label{
+    position: relative;
+}
+.required label::after {
+    content: "*";
+    position: absolute;
+    right: -10px;
+    font-weight: bold;
+    font-size: 19px;
+    top: 0;
+    color: #b51010;
+}
