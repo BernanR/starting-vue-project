@@ -21,23 +21,72 @@
                 label: 'Name',
                 name: 'name',            
                 value: '',
-                required: true,
+                required: true,                
                 erroMessage: 'Please put your name.',
-                col:2
+                col: 'col-span-2'
             },
             {
                 type : 'email',
                 placeholder: 'Tipy your email',
                 label: 'Email',
                 name: 'email',
-                required: true,           
+                required: true,
+                validate : {email: true, min:10, max:10, unique: ['users', 'email']},         
                 value: '',
+                col: 'col-span-2'
+            },            
+            {
+                type : 'select',
+                placeholder: '',
+                label: 'Champions',
+                name: 'champions',
+                id: 'champions',
+                col: 'col-span-4',
+                options: [
+                    {value: 1, label: 'Tristana'},
+                    {value: 2, label: 'Yasuo'},
+                    {value: 3, label: 'Lux'},
+                    {value: 3, label: 'Vi'},
+                ]
+            },
+            {
+                type : 'checkbox',
+                placeholder: '',
+                label: 'Wich one of this adjectives would you discrabe him?',
+                name: 'lanes',
+                id: 'lanes',
+                col: 'col-span-4',
+                options: [
+                    {value: 1, label: 'Mid'},
+                    {value: 2, label: 'Bot'},
+                    {value: 3, label: 'To'},
+                    {value: 3, label: 'Wind'},
+                ],
+                value: []
+            },
+            {
+                type : 'radio',
+                placeholder: '',
+                label: 'Wich one of this adjectives would you discrabe him?',
+                name: 'lanes',
+                id: 'lanes',
+                col: 'col-span-4',
+                options: [
+                    {value: 1, label: 'Mid'},
+                    {value: 2, label: 'Bot'},
+                    {value: 3, label: 'To'},
+                    {value: 3, label: 'Wind'},
+                ],
+                value: []
             },
             {
                 type : 'password',
                 placeholder: 'Tipy your password',
                 label: 'Password',
-                name: 'password',            
+                name: 'password',
+                required: true,
+                validate: {password: true},
+                col: 'col-span-2',
                 value: '',
             },
             {
@@ -46,8 +95,10 @@
                 label: 'Confirm your password',
                 name: 'password_confirm',
                 id: 'password_confirm',
+                validate : { confirm: 'password' },
+                col: 'col-span-2',
                 value: '',
-            }
+            },
         ]
     })
 
