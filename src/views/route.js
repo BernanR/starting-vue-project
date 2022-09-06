@@ -9,4 +9,14 @@ export default [
         name: 'form',
         component: import('./pages/form.vue')
     },
+    {
+        path: '/about',
+        name: 'about',
+        component: import('./pages/about.vue')
+    },
+    {
+        path: '/count',
+        name: 'count',
+        component: import('./pages/count.vue')
+    }
 ]

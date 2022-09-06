@@ -3,10 +3,14 @@
 In this project you will have everything you need to start your project with vue and tailwind.
 
 * Login and Register page
-* Modules architecture
+* Modules structure
 * Routes
 * Dialog for alerts and confirmation
 * Basic form
+
+What's been using on this project?
+
+Pinia
 
 ## Recommended IDE Setup
 

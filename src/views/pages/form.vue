@@ -53,16 +53,16 @@
                 type : 'checkbox',
                 placeholder: '',
                 label: 'Wich one of this adjectives would you discrabe him?',
-                name: 'lanes',
-                id: 'lanes',
+                name: 'positions',
+                id: 'positions',
                 col: 'col-span-4',
                 options: [
                     {value: 1, label: 'Mid'},
                     {value: 2, label: 'Bot'},
                     {value: 3, label: 'To'},
-                    {value: 3, label: 'Wind'},
+                    {value: 4, label: 'Wind'},
                 ],
-                value: []
+                value: [1,3]
             },
             {
                 type : 'radio',
@@ -75,9 +75,20 @@
                     {value: 1, label: 'Mid'},
                     {value: 2, label: 'Bot'},
                     {value: 3, label: 'To'},
-                    {value: 3, label: 'Wind'},
+                    {value: 4, label: 'Wind'},
                 ],
                 value: []
+            },            
+            {
+                type : 'image',
+                placeholder: '',
+                label: 'Choose a image',
+                name: 'image',
+                id: 'image',
+                col: 'col-span-4',
+                required: true,
+                value: '',
+                erroMessage: 'Please choose a image.',
             },
             {
                 type : 'password',
@@ -98,7 +109,7 @@
                 validate : { confirm: 'password' },
                 col: 'col-span-2',
                 value: '',
-            },
+            }            
         ]
     })
 

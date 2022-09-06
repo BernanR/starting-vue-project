@@ -18,7 +18,7 @@
                         />
                         <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p>                        
                     </div>
-                    <div v-if="field.type === 'email'">
+                    <div v-else-if="field.type === 'email'">
                         <label for="first-name" :class="[field.required ? 'required' : '']">{{field.label}}</label>
                         <input v-model="field.value" v-on:blur="validate(field)" type="email" :name="field.name" :id="field.id" :placeholder="field.placeholder" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" 
                         :class="[
@@ -28,7 +28,7 @@
                         />
                         <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p> 
                     </div>
-                    <div v-if="field.type === 'password'">
+                    <div v-else-if="field.type === 'password'">
                         <label for="first-name" :class="[field.required ? 'required' : '']">{{field.label}}</label>
                         <input v-model="field.value" v-on:blur="validate(field)" type="password" :name="field.name" :id="field.id" :placeholder="field.placeholder" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" 
                         :class="[
@@ -38,7 +38,7 @@
                         />
                         <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p> 
                     </div>
-                    <div v-if="field.type === 'select'">
+                    <div v-else-if="field.type === 'select'">
                         <label for="first-name" :class="[field.required ? 'required' : '']">{{field.label}}</label>
                         <select 
                             v-model="field.value" v-on:change="validate(field)" :name="field.name" :id="field.id"
@@ -52,34 +52,87 @@
                         </select>
                         <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p> 
                     </div>
-                    <div v-if="field.type === 'checkbox'">
+                    <div v-else-if="field.type === 'checkbox'">
                         <div class="mt-4 space-y-4">
                             <p class="text-gray-500">{{field.label}}</p>
                             <div class="flex items-start" v-for="option in field.options">
                                 <div class="flex h-5 items-center">
-                                <input v-model="field.value" @change="onCheckboxChange(field)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                <input :checked="field.value.includes(option.value)" :value="option.value" @change="onCheckboxChange($event, field)"  type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                                 </div>
                                 <div class="ml-3 text-sm">
                                 <label :for="option.value" class="font-medium text-gray-700"> {{option.label}}</label>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
-                        <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p> 
+                        <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p>
                     </div>
-                    <div v-if="field.type === 'radio'">
+                    <div v-else-if="field.type === 'radio'">
                         <div class="mt-4 space-y-4" >
                             <p class="text-gray-500">{{field.label}}</p>
                             <div class="flex items-center" v-for="option in field.options">
-                                <input :id="option.value" :value="option.value" type="radio" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                <input :name="field.name" v-model="field.value" :value="option.value" type="radio" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
                                 <label for="push-everything" class="ml-3 block text-sm font-medium text-gray-700">{{option.label}}</label>
                             </div>
+                        </div>
+                    </div>
+                    <div v-else-if="field.type === 'image'">
+                        <div class="mt-1 flex items center">
+                            <img
+                                v-if="field.image_url"
+                                :src="field.image_url"
+                                class="w-64 h-48 object-cover mr-5"
+                            />
+                            <label class="block text-sm font-medium text-gray-700">Image</label>
+                            <div class="mt-1 flex items center">              
+                                <span
+                                class="
+                                    inline-block
+                                    h-12 w-12
+                                    rounded-full
+                                    overflow-hidden
+                                    bg-gray-100"
+                                >
+                                    <svg class="h-[80%] w-[80%] text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </span>
+                                <button
+                                    type="button"
+                                    class="
+                                    relative
+                                    h-10
+                                    ml-5
+                                    bg-white
+                                    py-2
+                                    px-3
+                                    border
+                                    border-gray-300
+                                    rounded-md
+                                    shadow-sm
+                                    text-sm
+                                    leading-4
+                                    font-medium
+                                    text-gray-700
+                                    hover:bg-gray-50
+                                    focus:outline-none
+                                    focus:ring-2
+                                    focus:ring-offset-2
+                                    focus:ring-indigo-500"
+                                >
+                                    <input @change="onImageChoose($event, field)" type="file" class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer">
+                                    <span v-if="field.image_url">Change</span>
+                                    <span v-else>Choose</span>
+                                </button>
+                            </div>
+                            <p v-if="field.hasErro" class="text-red-500">{{ field.erroMessage }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="mt-16 text-right">
                 <button type="submit" class="bg-slate-700 hover:bg-slate-600 py-2 px-5 text-white rounded-3xl">Submit</button>
-            </div>               
+            </div>
+                        
         </form>
     </div>
     <div class="hidden sm:block" aria-hidden="true">
@@ -90,23 +143,26 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 
 const props = defineProps({
     form : Array
 })
 
-const fields = props.form.fields;
+const fields = ref(props.form.fields);
 
 function submit(ev) {
     ev.preventDefault();
-    console.log("validate", checkFieldsIsValid())
-    if (checkFieldsIsValid())
-        props.form.submit(fields);
+    if (checkFieldsIsValid()) {
+        let formData = {};
+        fields.value.forEach((field) => formData[field.name] = field.value);
+        props.form.submit(formData);
+    }
 }
 
 function checkFieldsIsValid() {
     let hasErro = false;
-    fields.forEach(field => {        
+    fields.value.forEach(field => {        
         if (!validate(field))
             hasErro = true;
     });
@@ -147,7 +203,7 @@ const validateRules = {
         return true;
     },
     confirm: (field) => {
-        if(fields.filter(e => e.name === field.validate.confirm )[0].value !== field.value) {
+        if(fields.value.filter(e => e.name === field.validate.confirm )[0].value !== field.value) {
             field.erroMessage = "Password doesn't math!";
             field.hasErro = true;
             return false;
@@ -158,15 +214,29 @@ const validateRules = {
     }
 }
 
-function onCheckboxChange(model) {
-  console.log(model)
+function onCheckboxChange(ev, model) {
+    if (ev.target.checked)
+        model.value.push(ev.target.value);
+    else
+        model.value = model.value.filter(el => el != ev.target.value);
+}
+
+function onImageChoose(ev, model) {
+  const file = ev.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    // The field to send on backend and apply validations
+    model.value = reader.result;
+    // the field to display here
+    model.image_url = reader.result;
+  }
+  reader.readAsDataURL(file);
 }
 
 function validate(field) {
     
     if (field.required === true && field.value === '') {
         field.hasErro = true;
-        console.log(field.name, "error")
         if (!field.erroMessage) field.erroMessage = "This field is required!";
         return false;
     }
